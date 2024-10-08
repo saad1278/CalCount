@@ -1,27 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('calorieForm').addEventListener('submit', async (event) => {
-        event.preventDefault(); // منع الإرسال الافتراضي للنموذج
+        event.preventDefault(); // منع إرسال النموذج الافتراضي
 
-        const foodName = document.getElementById('foodName').value; // استخدم الاسم المدخل
-        const weight = parseFloat(document.getElementById('weight').value);
+        const foodName = document.getElementById('foodName').value; // جلب اسم الطعام المدخل
+        const weight = parseFloat(document.getElementById('weight').value); // جلب الوزن
 
-        // تحقق من أن الوزن صحيح
         if (weight <= 0) {
             document.getElementById('result').textContent = 'Please enter a valid weight.';
             return;
         }
 
-        // استعلام إلى واجهة برمجة التطبيقات للحصول على السعرات الحرارية
-        const appId = 'YOUR_APP_ID'; // استبدل بـ App ID الخاص بك
-        const appKey = 'YOUR_APP_KEY'; // استبدل بـ App Key الخاص بك
-        const url = `https://api.nutritionix.com/v1_1/search/${encodeURIComponent(foodName)}?results=0:1&fields=item_name,nf_calories&appId=${appId}&appKey=${appKey}`;
+        // طلب بيانات السعرات الحرارية من Spoonacular API
+        const apiKey = '063ecd5e3ffa498d9df76d306566b982'; // ضع مفتاح API الخاص بك هنا
+        const url = `https://api.spoonacular.com/food/ingredients/search?query=${encodeURIComponent(foodName)}&apiKey=${apiKey}`;
 
         try {
             const response = await fetch(url);
             const data = await response.json();
 
-            if (data.hits.length > 0) {
-                const caloriesPer100g = data.hits[0]._source.nf_calories;
+            if (data.results.length > 0) {
+                const ingredientId = data.results[0].id; // الحصول على ID الخاص بالمكون
+
+                // طلب بيانات التغذية بناءً على ID المكون
+                const nutritionUrl = `https://api.spoonacular.com/food/ingredients/${ingredientId}/information?amount=100&unit=grams&apiKey=${apiKey}`;
+                const nutritionResponse = await fetch(nutritionUrl);
+                const nutritionData = await nutritionResponse.json();
+
+                const caloriesPer100g = nutritionData.nutrition.nutrients.find(n => n.name === "Calories").amount;
                 const totalCalories = (caloriesPer100g / 100) * weight;
                 document.getElementById('result').textContent = `Total Calories: ${totalCalories.toFixed(2)} kcal`;
             } else {
@@ -32,6 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('result').textContent = 'Error fetching data. Please try again later.';
         }
     });
+});
+
 
     // البيانات الخاصة بالترجمة
     const translations = {
@@ -61,4 +68,4 @@ document.addEventListener('DOMContentLoaded', () => {
         currentLang = currentLang === 'en' ? 'ar' : 'en';
         updateLanguage(currentLang);
     });
-});
+
