@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // طلب بيانات السعرات الحرارية من Spoonacular API
         const apiKey = '063ecd5e3ffa498d9df76d306566b982'; // ضع مفتاح API الخاص بك هنا
-        const url = `https://api.spoonacular.com/food/ingredients/search?query=${encodeURIComponent(foodName)}&apiKey=${apiKey}`;
+        const url = `https://api.spoonacular.com/food/ingredients/search?query={foodName}&apiKey={yourApiKey}`;
 
         try {
             const response = await fetch(url);
