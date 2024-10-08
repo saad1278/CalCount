@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalCount</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <img id="lang-toggle" src="world.png" alt="Switch to Arabic" style="cursor: pointer;">
+
+    <div class="container">
+        <h1 id="title">CalCount</h1>
+        <p id="description">Track your daily calories with ease.</p>
+        <form id="calorieForm">
+            <div class="input-group">
+                <label for="foodName">Food Name:</label>
+                <input type="text" id="foodName" placeholder="Enter food name" required>
+            </div>
+            <div class="input-group">
+                <label for="weight">Food Weight (grams):</label>
+                <input type="number" id="weight" placeholder="Enter weight in grams" required>
+            </div>
+            <button type="submit">Calculate Calories</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    
+    <footer>
+        <p>Website created by Saad Alshishtawi</p>
+    </footer>
+    <a href="https://www.instagram.com/1_s44d/" target="_blank">
+        <img src="instagram (1).png" alt="Instagram" class="instagram-icon">
+    </a>
+    <script src="script.js"></script>
+</body>
+</html>
