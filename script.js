@@ -40,12 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const cyclingMinutes = totalCalories / cyclingCaloriesPerMinute;
 
                 // عرض النتيجة
-                document.getElementById('result').textContent = `
-                    Total Calories: ${totalCalories.toFixed(2)} kcal
-                    \nTo burn these calories, you would need to:
-                    \n- Run for ${runningMinutes.toFixed(2)} minutes (9 km/h)
-                    \n- Walk for ${walkingMinutes.toFixed(2)} minutes (5 km/h)
-                    \n- Cycle for ${cyclingMinutes.toFixed(2)} minutes (15 km/h)
+                document.getElementById('result').innerHTML = `
+                    <p>Total Calories: <span>${totalCalories.toFixed(2)}</span> kcal</p>
+                    <p class="activity">To burn these calories, you would need to:</p>
+                    <p class="activity">- Run for <span>${runningMinutes.toFixed(2)}</span> minutes (9 km/h)</p>
+                    <p class="activity">- Walk for <span>${walkingMinutes.toFixed(2)}</span> minutes (5 km/h)</p>
+                    <p class="activity">- Cycle for <span>${cyclingMinutes.toFixed(2)}</span> minutes (15 km/h)</p>
                 `;
             } else {
                 document.getElementById('result').textContent = 'Food not found. Please try another.';
