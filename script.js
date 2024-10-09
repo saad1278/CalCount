@@ -56,3 +56,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+    // البيانات الخاصة بالترجمة
+    const translations = {
+        en: {
+            title: "CalCount",
+            description: "Track your daily calories with ease.",
+            footer: "Website created by Saad Alshishtawi",
+        },
+        ar: {
+            title: "عداد السعرات الحرارية",
+            description: "تتبع السعرات الحرارية اليومية بسهولة.",
+            footer: "تصميم: سعد الششتاوي",
+        }
+    };
+
+    let currentLang = 'en'; // اللغة الحالية الافتراضية هي الإنجليزية
+
+    // دالة لتحديث النصوص حسب اللغة
+    function updateLanguage(lang) {
+        document.getElementById('title').textContent = translations[lang].title;
+        document.getElementById('description').textContent = translations[lang].description;
+        document.querySelector('footer p').textContent = translations[lang].footer;
+    }
+
+    // تغيير اللغة عند الضغط على الزر
+    document.getElementById('lang-toggle').addEventListener('click', () => {
+        currentLang = currentLang === 'en' ? 'ar' : 'en';
+        updateLanguage(currentLang);
+    });
+
